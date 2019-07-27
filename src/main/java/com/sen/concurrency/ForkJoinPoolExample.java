@@ -16,13 +16,8 @@ public class ForkJoinPoolExample {
         tasks.offer(() -> factorial(6)); // add your new runnable task here
         tasks.offer(() -> factorial(11)); // add your new runnable task here
 
-        new ForkJoinPool(4).execute(new Consumer());
 
-        try {
-            Thread.sleep(1000000000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        new ForkJoinPool(4).execute(new Consumer());
     }
 
     private void factorial(int n) {
@@ -32,6 +27,8 @@ public class ForkJoinPoolExample {
             result = result * num--;
         }
 
+        // This probably wont print as the main thread will exit out even before this gets executed.
+        // To see the output of print method yo can add a sleep to main method after the initialization of ForkJoinPool
         System.out.println("Factorial of " + n + " is : " + result);
     }
 
